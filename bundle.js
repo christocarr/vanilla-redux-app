@@ -201,7 +201,14 @@ function changeCount(amount) {
 
 function addFavoriteThing(thing) {
   return {
-    type: "ADD_FAVORITE_THING",
+    type: 'ADD_FAVORITE_THING',
+    payload: thing
+  }
+}
+
+function removeFavoriteThing(thing) {
+  return {
+    type: 'REMOVE_FAVORITE_THING',
     payload: thing
   }
 }
@@ -225,10 +232,16 @@ function reducer(state = initialState, action) {
     //   return {
     //     count: Math.round(state.count / 2)
     //   }
-    case "ADD_FAVORITE_THING": 
+    case 'ADD_FAVORITE_THING': 
       return {
         ...state,
         favoriteThings: [...state.favoriteThings, action.payload]
+      }
+    case 'REMOVE_FAVORITE_THING':
+      const newFavoriteThings = state.favoriteThings.filter(thing => thing !== action.payload)
+      return {
+        ...state,
+        favoriteThings: newFavoriteThings
       }
     default:
       return state;
@@ -242,7 +255,11 @@ store.subscribe(() => {
 
 store.dispatch(changeCount(5));
 store.dispatch(changeCount(-1));
+
 store.dispatch(addFavoriteThing('beer'))
+store.dispatch(addFavoriteThing('ice-cream'))
+
+store.dispatch(removeFavoriteThing('beer'))
 
 },{"redux":3}],3:[function(require,module,exports){
 (function (process){

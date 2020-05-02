@@ -187,9 +187,10 @@ process.umask = function() { return 0; };
 },{}],2:[function(require,module,exports){
 const redux = require('redux')
 
-function increment() {
+function increment(amount) {
   return {
-    type: "INCREMENT"
+    type: "INCREMENT",
+    payload: amount
   }
 }
 
@@ -215,7 +216,7 @@ function reducer(state={count: 0}, action) {
   switch(action.type) {
     case "INCREMENT": 
       return {
-        count: state.count + 1
+        count: state.count + action.payload
       }
     case "DECREMENT":
       return {
@@ -235,7 +236,12 @@ function reducer(state={count: 0}, action) {
 }
 
 const store = redux.createStore(reducer)
-console.log(store)
+store.subscribe(() => {
+  console.log(store.getState())
+})
+
+store.dispatch(increment(5))
+store.dispatch(decrement())
 },{"redux":3}],3:[function(require,module,exports){
 (function (process){
 'use strict';

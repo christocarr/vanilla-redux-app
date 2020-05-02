@@ -190,7 +190,13 @@ const redux = require('redux');
 const initialState = {
   count: 0,
   favoriteThings: [],
+  youTubeVideo: {
+    title: "",
+    viewCount: 0
+  }
 };
+
+console.log(initialState)
 
 function changeCount(amount) {
   return {
@@ -213,6 +219,13 @@ function removeFavoriteThing(thing) {
   }
 }
 
+function addYouTubeTitle(title) {
+  return {
+    type: 'ADD_YOUTUBE_TITLE',
+    payload: title
+  }
+}
+
 function reducer(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_COUNT':
@@ -220,18 +233,6 @@ function reducer(state = initialState, action) {
         ...state,
         count: state.count + action.payload,
       };
-    // case "DECREMENT":
-    //   return {
-    //     count: state.count - 1
-    //   }
-    // case "DOUBLE":
-    //   return {
-    //     count: state.count * 2
-    //   }
-    // case "HALVE":
-    //   return {
-    //     count: Math.round(state.count / 2)
-    //   }
     case 'ADD_FAVORITE_THING': 
       return {
         ...state,
@@ -243,6 +244,14 @@ function reducer(state = initialState, action) {
         ...state,
         favoriteThings: newFavoriteThings
       }
+    case 'ADD_YOUTUBE_TITLE': 
+      return {
+        ...state,
+        youTubeVideo: {
+          ...state.youTubeVideo,
+          title: action.payload
+        }
+      }
     default:
       return state;
   }
@@ -253,13 +262,8 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
-store.dispatch(changeCount(5));
-store.dispatch(changeCount(-1));
+store.dispatch(addYouTubeTitle('Learn Redux'));
 
-store.dispatch(addFavoriteThing('beer'))
-store.dispatch(addFavoriteThing('ice-cream'))
-
-store.dispatch(removeFavoriteThing('beer'))
 
 },{"redux":3}],3:[function(require,module,exports){
 (function (process){

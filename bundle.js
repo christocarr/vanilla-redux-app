@@ -192,7 +192,11 @@ const initialState = {
   favoriteThings: [],
   youTubeVideo: {
     title: "",
-    viewCount: 0
+    viewCount: 0,
+    votes: {
+      up: 0,
+      down: 0
+    }
   }
 };
 
@@ -226,6 +230,12 @@ function addYouTubeTitle(title) {
   }
 }
 
+function upVote() {
+  return {
+    type: 'UP_VOTE',
+  }
+}
+
 function reducer(state = initialState, action) {
   switch (action.type) {
     case 'CHANGE_COUNT':
@@ -252,6 +262,17 @@ function reducer(state = initialState, action) {
           title: action.payload
         }
       }
+    case 'UP_VOTE':
+      return {
+        ...state,
+        youTubeVideo: {
+          ...state.youTubeVideo,
+          votes: {
+            ...state.youTubeVideo.votes,
+            up: state.youTubeVideo.votes.up + 1
+          }
+        }
+      }
     default:
       return state;
   }
@@ -262,7 +283,7 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
-store.dispatch(addYouTubeTitle('Learn Redux'));
+store.dispatch(upVote());
 
 
 },{"redux":3}],3:[function(require,module,exports){

@@ -185,63 +185,65 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
-const redux = require('redux')
+const redux = require('redux');
 
-function increment(amount) {
+const initialState = {
+  count: 0,
+  favoriteThings: [],
+};
+
+function changeCount(amount) {
   return {
-    type: "INCREMENT",
-    payload: amount
-  }
+    type: 'CHANGE_COUNT',
+    payload: amount,
+  };
 }
 
-function decrement() {
+function addFavoriteThing(thing) {
   return {
-    type: "DECREMENT"
+    type: "ADD_FAVORITE_THING",
+    payload: thing
   }
 }
 
-function double() {
-  return {
-    type: "DOUBLE"
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case 'CHANGE_COUNT':
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+    // case "DECREMENT":
+    //   return {
+    //     count: state.count - 1
+    //   }
+    // case "DOUBLE":
+    //   return {
+    //     count: state.count * 2
+    //   }
+    // case "HALVE":
+    //   return {
+    //     count: Math.round(state.count / 2)
+    //   }
+    case "ADD_FAVORITE_THING": 
+      return {
+        ...state,
+        favoriteThings: [...state.favoriteThings, action.payload]
+      }
+    default:
+      return state;
   }
 }
 
-function halve() {
-  return {
-    type: "HALVE"
-  }
-}
-
-function reducer(state={count: 0}, action) {
-  switch(action.type) {
-    case "INCREMENT": 
-      return {
-        count: state.count + action.payload
-      }
-    case "DECREMENT":
-      return {
-        count: state.count - 1
-      }
-    case "DOUBLE":
-      return {
-        count: state.count * 2
-      }
-    case "HALVE":
-      return {
-        count: Math.round(state.count / 2)
-      }
-    default: 
-      return state
-  }
-}
-
-const store = redux.createStore(reducer)
+const store = redux.createStore(reducer);
 store.subscribe(() => {
-  console.log(store.getState())
-})
+  console.log(store.getState());
+});
 
-store.dispatch(increment(5))
-store.dispatch(decrement())
+store.dispatch(changeCount(5));
+store.dispatch(changeCount(-1));
+store.dispatch(addFavoriteThing('beer'))
+
 },{"redux":3}],3:[function(require,module,exports){
 (function (process){
 'use strict';

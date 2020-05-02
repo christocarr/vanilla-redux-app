@@ -1,4 +1,4 @@
-import redux from 'redux'
+const redux = require('redux')
 
 function increment() {
   return {
@@ -46,3 +46,6 @@ function reducer(state={count: 0}, action) {
       return state
   }
 }
+
+const store = redux.createStore(reducer)
+console.log(store)

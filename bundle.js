@@ -232,7 +232,13 @@ function addYouTubeTitle(title) {
 
 function upVote() {
   return {
-    type: 'UP_VOTE',
+    type: 'UP_VOTE'
+  }
+}
+
+function downVote() {
+  return {
+    type: 'DOWN_VOTE'
   }
 }
 
@@ -273,6 +279,17 @@ function reducer(state = initialState, action) {
           }
         }
       }
+    case 'DOWN_VOTE': 
+      return {
+        ...state,
+        youTubeVideo: {
+          ...state.youTubeVideo,
+          votes: {
+            ...state.youTubeVideo.votes,
+            down: state.youTubeVideo.votes.down + 1
+          }
+        }
+      }
     default:
       return state;
   }
@@ -284,6 +301,7 @@ store.subscribe(() => {
 });
 
 store.dispatch(upVote());
+store.dispatch(downVote());
 
 
 },{"redux":3}],3:[function(require,module,exports){

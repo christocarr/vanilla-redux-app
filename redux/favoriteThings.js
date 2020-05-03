@@ -17,7 +17,7 @@ export default function favoriteThingsReducer(favoriteThings = [], action) {
     case 'ADD_FAVORITE_THING':
       return [...favoriteThings, action.payload]
     case 'REMOVE_FAVORITE_THING':
-      newArr = favoriteThings.filter(thing => thing !== action.payload)
+      const newArr = favoriteThings.filter(thing => thing !== action.payload)
       return newArr
     default:
       return favoriteThings

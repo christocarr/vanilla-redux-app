@@ -7,11 +7,14 @@ import {
   downVoteVideo,
   incrementVideoViewCount,
 } from './redux/youTubeVideo';
+import { addUserDetails } from './redux/users'
 
-store.dispatch(changeCount(11));
-store.dispatch(addFavoriteThing('cats'))
-store.dispatch(addYouTubeTitle('cats'))
-store.dispatch(upVoteVideo())
-store.dispatch(downVoteVideo())
-store.dispatch(incrementVideoViewCount())
-store.dispatch(removeFavoriteThing('cats'))
+// store.dispatch(changeCount(11));
+// store.dispatch(addFavoriteThing('cats'))
+// store.dispatch(addYouTubeTitle('cats'))
+// store.dispatch(upVoteVideo())
+// store.dispatch(downVoteVideo())
+// store.dispatch(incrementVideoViewCount())
+// store.dispatch(removeFavoriteThing('cats'))
+
+store.dispatch(addUserDetails('John', 'Doe', 22, 'john.doe@gmail.com'))

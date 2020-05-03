@@ -43,15 +43,21 @@ function addYouTubeTitle(title) {
   }
 }
 
-function upVote() {
+function upVoteVideo() {
   return {
-    type: 'UP_VOTE'
+    type: 'UP_VOTE_VIDEO'
   }
 }
 
-function downVote() {
+function downVoteVideo() {
   return {
-    type: 'DOWN_VOTE'
+    type: 'DOWN_VOTE_VIDEO'
+  }
+}
+
+function incrementVideoViewCount() {
+  return {
+    type: 'INCREMENT_VIDEO_VIEW_COUNT'
   }
 }
 
@@ -81,7 +87,7 @@ function reducer(state = initialState, action) {
           title: action.payload
         }
       }
-    case 'UP_VOTE':
+    case 'UP_VOTE_VIDEO':
       return {
         ...state,
         youTubeVideo: {
@@ -92,14 +98,26 @@ function reducer(state = initialState, action) {
           }
         }
       }
-    case 'DOWN_VOTE': 
+    case 'DOWN_VOTE_VIDEO': 
       return {
         ...state,
         youTubeVideo: {
           ...state.youTubeVideo,
+          viewCount: state.youTubeVideo.viewCount + 1,
           votes: {
             ...state.youTubeVideo.votes,
             down: state.youTubeVideo.votes.down + 1
+          }
+        }
+      }
+    case 'INCREMENT_VIDEO_VIEW_COUNT':
+      return {
+        ...state,
+        youTubeVideo: {
+          ...state.youTubeVideo,
+
+          votes: {
+            ...state.youTubeVideo.votes,
           }
         }
       }
@@ -113,6 +131,8 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
-store.dispatch(upVote());
-store.dispatch(downVote());
+store.dispatch(upVoteVideo());
+store.dispatch(downVoteVideo());
+
+store.dispatch(incrementVideoViewCount())
 

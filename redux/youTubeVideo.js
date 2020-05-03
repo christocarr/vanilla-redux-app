@@ -1,25 +1,23 @@
-import { __DO_NOT_USE__ActionTypes } from "../bundle"
-
-function addYouTubeTitle(title) {
+export function addYouTubeTitle(title) {
   return {
     type: 'ADD_YOUTUBE_TITLE',
     payload: title
   }
 }
 
-function upVoteVideo() {
+export function upVoteVideo() {
   return {
     type: 'UP_VOTE_VIDEO'
   }
 }
 
-function downVoteVideo() {
+export function downVoteVideo() {
   return {
     type: 'DOWN_VOTE_VIDEO'
   }
 }
 
-function incrementVideoViewCount() {
+export function incrementVideoViewCount() {
   return {
     type: 'INCREMENT_VIDEO_VIEW_COUNT'
   }
@@ -34,7 +32,7 @@ const initialState = {
   }
 }
 
-function youTubeVideoReducer(youTubeVideo = initialState, action) {
+export default function youTubeVideoReducer(youTubeVideo = initialState, action) {
   switch (action.type) {
     case 'ADD_YOUTUBE_TITLE':
       return {
